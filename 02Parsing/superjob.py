@@ -6,7 +6,7 @@ import json
 import pandas as pd
 
 main_link = "https://www.superjob.ru"
-user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
 accept = "text/html,application/xhtml+xml,application/xml;q=0.9"
 accept_language = "ru-RU"
 accept_charset = "utf-8"
@@ -17,7 +17,6 @@ headers = {"User-Agent": user_agent, "Accept" : accept,
 
 
 def parse_money(m: str, d: dict):
-    mold = m
     m = m.replace(" ", "")
     m = m.replace("\u00a0", "")
     val = re.findall("[\D]+$", m)
@@ -41,11 +40,11 @@ def parse_money(m: str, d: dict):
         d["salary_high"] = int(re.findall("[0-9]+", ml[1])[0])
     else:
         if m.isdigit():
-            d["salary_low"] = m
-            d["salary_high"] = m
+            d["salary_low"] = int(m)
+            d["salary_high"] = int(m)
         else:
-            d["salary_low"] = mold
-            d["salary_high"] = mold
+            d["salary_low"] = None
+            d["salary_high"] = None
 
 def save(vl : list, fname: str):
     json_data = json.dumps(vl)

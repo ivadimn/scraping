@@ -10,22 +10,6 @@ user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 headers = {"User-Agent": user_agent}
 
 
-"""def parse_money(m: str, d: dict):
-    m = m.replace(" ", "")
-    m = m.replace("\u00a0", "")
-    val = re.findall("[\D]+$", m)
-    if val:
-        d["currency"] = val[0]
-    if m.startswith("от"):
-        mlow = re.findall("[0-9]+", m)
-        d["salary_low"] = int(mlow[0])
-    elif (m.startswith("до")):
-        mhigh = re.findall("[0-9]+", m)
-        d["salary_high"] = int(mhigh[0])
-    else:
-        ml = m.split("-")
-        d["salary_low"] = int(ml[0])
-        d["salary_high"] = int(re.findall("[0-9]+", ml[1])[0])"""
 
 def parse_money(m: str, d: dict):
     mold = m
@@ -51,8 +35,8 @@ def parse_money(m: str, d: dict):
         d["salary_low"] = int(ml[0])
         d["salary_high"] = int(re.findall("[0-9]+", ml[1])[0])
     else:
-        d["salary_low"] = m
-        d["salary_high"] = m
+        d["salary_low"] = None
+        d["salary_high"] = None
 
 
 def save(vl : list, fname: str):
