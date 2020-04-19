@@ -27,7 +27,6 @@ def get_detail(href):
 
 def parse_top_block(r):
       items = r.xpath("//div[contains(@class, 'daynews__item')]")
-      pprint(items)
       for item in items:
           new = {}
           link = item.xpath(".//a/@href")
@@ -46,7 +45,6 @@ def parse_top_block(r):
 
 def parse_track_block(r):
     items = r.xpath("//li[contains(@class, 'list__item')]")
-    pprint(items)
     for item in items:
         new = {}
         link = item.xpath(".//a/@href")
@@ -71,5 +69,3 @@ parse_top_block(root)
 parse_track_block(root)
 pprint(list_news)
 db.to_database(list_news)
-
-#//div[@class='article__intro meta-speakable-intro']
