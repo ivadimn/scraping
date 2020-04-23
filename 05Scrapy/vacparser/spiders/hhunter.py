@@ -14,12 +14,13 @@ class HhunterSpider(scrapy.Spider):
 
     def parse(self, response: HtmlResponse):
         next_page = response.css("a.HH-Pager-Controls-Next::attr(href)").extract_first()
-        if next_page:
-            yield response.follow(next_page, callback=self.parse)
 
         vac_links = response.xpath("//a[@data-qa='vacancy-serp__vacancy-title']/@href").extract()
         for v_link in vac_links:
             yield response.follow(v_link, callback=self.vac_parse)
+            
+        if next_page:
+            yield response.follow(next_page, callback=self.parse)
 
     def vac_parse(self, response: HtmlResponse):
         name = response.xpath("//div[@class='vacancy-title']/h1/text()").extract_first()

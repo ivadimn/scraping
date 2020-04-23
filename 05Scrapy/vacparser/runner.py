@@ -9,5 +9,5 @@ if __name__ == "__main__" :
     crw_settings.setmodule(settings)
     process = CrawlerProcess(settings=crw_settings)
     process.crawl(HhunterSpider, profession="Python")
-    process.crawl(JobruSpider, profession="C")
+    #process.crawl(JobruSpider, profession="C")
     process.start()
