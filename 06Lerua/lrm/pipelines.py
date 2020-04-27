@@ -5,7 +5,8 @@ import os
 from urllib.parse import urlparse
 import re
 
-prod_list = []
+prod_names = {}
+
 class LrmPipeline(object):
     def __init__(self):
         client = MongoClient("localhost", 27017)
@@ -26,8 +27,8 @@ class LrmPhotosPipeline(ImagesPipeline):
     name: str = ""
     def get_media_requests(self, item, info):
         if item["images"]:
-            self.name = item["name"]
             for img in item["images"]:
+                prod_names[img] = item["name"]
                 try:
                     yield scrapy.Request(img)
                 except Exception as e:
@@ -39,5 +40,6 @@ class LrmPhotosPipeline(ImagesPipeline):
         return item
 
     def file_path(self, request, response=None, info=None):
-        f_path = f"{self.name}/{os.path.basename(urlparse(request.url).path)}"
+        p_name = prod_names[request.url]
+        f_path = f"{p_name}/{os.path.basename(urlparse(request.url).path)}"
         return f_path
