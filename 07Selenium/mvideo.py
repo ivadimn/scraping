@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from pymongo import MongoClient
 import json
 import time
 
@@ -12,7 +13,7 @@ import time
 options = Options()
 options.add_argument("--disable-notifications")
 options.add_argument("start-maximized")
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome("/home/vadim/scraping/07Selenium/chromedriver", options=options)
 driver.get("https://www.mvideo.ru")
 hits_path = "//div[@class='gallery-layout sel-hits-block '][1]"
 items_path = ".//li[@class='gallery-list-item']"
@@ -51,14 +52,14 @@ while True:
 
 pprint(prod_list)
 
-"""client = MongoClient("localhost",27017)
+client = MongoClient("localhost",27017)
 db = client["mvideo"]
 db_hits = db.mvideo
 
 for p in prod_list:
     if not db_hits.count_documents(p):
         db_hits.insert_one(p)
-client.close()"""
+client.close()
 
 driver.quit()
 
