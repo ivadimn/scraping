@@ -64,6 +64,6 @@ client = MongoClient("localhost",27017)
 db = client["mailru"]
 db_msgs = db.mvideo
 
-db_msgs.insert_manu(msg_list)
+db_msgs.insert_many(msg_list)
 client.close()
 driver.quit()
