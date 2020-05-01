@@ -62,8 +62,11 @@ while True:
 
 client = MongoClient("localhost",27017)
 db = client["mailru"]
-db_msgs = db.mvideo
+db_msgs = db.messages
+try:
+    db_msgs.insert_many(msg_list)
+except:
+    print("Ошибка записи в базу")
 
-db_msgs.insert_many(msg_list)
 client.close()
 driver.quit()

@@ -8,5 +8,6 @@ def to_database(news: list):
         news_db.insert_many(news)
     except errors.BulkWriteError:
         print("Ошибка записи в базу")
+
     client.close()
     print(f"Добавлено {len(news)} записей")
